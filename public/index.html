@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terminal — AI Assistant</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">▍</span>
+        <span class="brand-name">AI Assistant</span>
+      </div>
+      <div class="status">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">checking connection…</span>
+      </div>
+    </header>
+
+    <main class="chat" id="chat">
+      <div class="msg assistant">
+        <div class="msg-role">ASSISTANT</div>
+        <div class="msg-body">Hey — I'm your assistant. Ask me anything to get started.</div>
+      </div>
+    </main>
+
+    <form class="composer" id="composer">
+      <span class="prompt-char">›</span>
+      <textarea
+        id="input"
+        placeholder="Type a message…"
+        rows="1"
+        autofocus
+      ></textarea>
+      <button type="submit" id="sendBtn" aria-label="Send">SEND</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
