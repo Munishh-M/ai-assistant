@@ -7,16 +7,45 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
+  <!-- Auth screen: shown until the user logs in or signs up -->
+  <div class="app auth-screen" id="authScreen">
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-mark">▍</span>
+        <span class="brand-name">TERMINAL</span>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" type="button">LOG IN</button>
+        <button class="auth-tab" id="tabSignup" type="button">SIGN UP</button>
+      </div>
+
+      <form id="authForm">
+        <label class="auth-label" for="authEmail">Email</label>
+        <input type="email" id="authEmail" placeholder="you@example.com" required autocomplete="email" />
+
+        <label class="auth-label" for="authPassword">Password</label>
+        <input type="password" id="authPassword" placeholder="••••••••" required autocomplete="current-password" minlength="6" />
+
+        <p class="auth-error" id="authError"></p>
+
+        <button type="submit" id="authSubmit" class="auth-submit">LOG IN</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Chat screen: shown once logged in -->
+  <div class="app" id="chatScreen" style="display: none;">
     <header class="topbar">
       <div class="brand">
         <span class="brand-mark">▍</span>
-        <span class="brand-name">AI Assistant</span>
+        <span class="brand-name">TERMINAL</span>
       </div>
       <div class="status">
         <span class="dot" id="statusDot"></span>
         <span id="statusText">checking connection…</span>
       </div>
+      <button class="logout-btn" id="logoutBtn" type="button">LOG OUT</button>
     </header>
 
     <main class="chat" id="chat">

@@ -1,10 +1,15 @@
 // server.js — Backend for the AI assistant
 // Talks to ANY OpenAI-compatible API (Groq, OpenRouter, Together AI, Ollama, etc.)
 // Keeps your API key on the server, never exposed to the browser.
+// Now with login/signup — each user needs an account to chat.
 
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
+
+const authRouter = require('./routes/auth');
+const { requireAuth } = require('./middleware/auth');
 
 const app = express();
 app.use(express.json());
@@ -15,8 +20,21 @@ const {
   API_KEY = '',
   MODEL = 'llama-3.3-70b-versatile',
   TAVILY_API_KEY = '',
+  MONGODB_URI = '',
+  JWT_SECRET = '',
   PORT = 3000,
 } = process.env;
+
+app.use('/api/auth', authRouter);
+
+app.get('/api/health', (req, res) => {
+  res.json({
+    ok: true,
+    dbConnected: mongoose.connection.readyState === 1,
+    hasApiKey: !!API_KEY,
+    hasJwtSecret: !!JWT_SECRET,
+  });
+});
 
 const SYSTEM_PROMPT =
   'You are a helpful, friendly AI assistant. Keep answers clear and concise unless asked for more detail. ' +
@@ -71,8 +89,8 @@ function looksLikeItNeedsSearch(text) {
   return triggers.some((k) => t.includes(k));
 }
 
-// POST /api/chat  { messages: [{role, content}, ...] }
-app.post('/api/chat', async (req, res) => {
+// POST /api/chat  { messages: [{role, content}, ...] }  — requires login
+app.post('/api/chat', requireAuth, async (req, res) => {
   try {
     const { messages } = req.body;
 
@@ -128,10 +146,29 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ AI assistant running at http://localhost:${PORT}`);
-  console.log(`   Using model "${MODEL}" via ${API_BASE_URL}`);
-  if (!API_KEY) {
-    console.log('⚠️  No API_KEY set yet — copy .env.example to .env and add one.');
+async function start() {
+  if (!MONGODB_URI) {
+    console.log('⚠️  No MONGODB_URI set — copy .env.example to .env and add your connection string.');
+  } else {
+    try {
+      await mongoose.connect(MONGODB_URI);
+      console.log('✅ Connected to MongoDB');
+    } catch (err) {
+      console.error('❌ MongoDB connection failed:', err.message);
+    }
   }
-});
+
+  if (!JWT_SECRET) {
+    console.log('⚠️  No JWT_SECRET set — login/signup will not work until you add one.');
+  }
+
+  app.listen(PORT, () => {
+    console.log(`✅ AI assistant running at http://localhost:${PORT}`);
+    console.log(`   Using model "${MODEL}" via ${API_BASE_URL}`);
+    if (!API_KEY) {
+      console.log('⚠️  No API_KEY set yet — copy .env.example to .env and add one.');
+    }
+  });
+}
+
+start();

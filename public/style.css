@@ -209,3 +209,133 @@ button#sendBtn:disabled {
   .app { border: none; }
   body { font-size: 13px; }
 }
+
+/* ---- Auth screen ---- */
+.auth-screen {
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 340px;
+  padding: 32px 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-raised);
+}
+
+.auth-card .brand {
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.auth-tabs {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-tab.active {
+  background: var(--amber-faint);
+  color: var(--amber);
+}
+
+.auth-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin: 14px 0 6px;
+}
+
+.auth-card input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.auth-card input:focus {
+  border-color: var(--amber-dim);
+}
+
+.auth-error {
+  min-height: 18px;
+  color: var(--danger);
+  font-size: 12px;
+  margin: 10px 0 0;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 11px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-submit:hover:not(:disabled) {
+  background: var(--amber);
+  color: #14110d;
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Logout button in chat topbar ---- */
+.logout-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.logout-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.topbar {
+  gap: 10px;
+}
+
+.status {
+  flex: 1;
+  justify-content: flex-end;
+}
