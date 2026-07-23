@@ -89,7 +89,7 @@ logoutBtn.addEventListener('click', () => {
   chat.innerHTML = `
     <div class="msg assistant">
       <div class="msg-role">ASSISTANT</div>
-      <div class="msg-body">Hey — I'm your assistant. Ask me anything to get started.</div>
+      <div class="msg-body">Hey — My name is Munish. I'm your assistant. Ask me anything to get started.</div>
     </div>`;
   showAuthScreen();
 });
